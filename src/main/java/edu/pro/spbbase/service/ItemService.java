@@ -43,25 +43,25 @@ public class ItemService {
 
     // CRUD
 
-    @Cacheable("items")
+
     public List<Item> getAll() {
         log.info(" -----------  GET ALL ------------------");
         return repository.findAll();
     }
 
-    @Cacheable("items")
+
     public Item getById(String id) {
         log.info(" request for id = " + id);
         return repository.findById(id).orElse(null);
     }
 
-    @CachePut(value = "items", key = "#item.id")
+
     public Item create(Item item) {
         log.info(" request for creation = " + item);
         return repository.save(item);
     }
 
-    @CacheEvict("items")
+
     public void delete(String id) {
         log.info(" delete id = " + id);
         repository.deleteById(id);
