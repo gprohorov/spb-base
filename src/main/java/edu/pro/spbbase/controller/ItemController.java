@@ -36,4 +36,10 @@ public class ItemController {
         return service.create(item);
     }
 
+    @DeleteMapping("/{id}")
+    public void eraseById(@PathVariable String id) {
+         service.delete(id);
+    }
+
+
 }

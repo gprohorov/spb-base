@@ -1,4 +1,5 @@
 package edu.pro.spbbase.service;
+
 /*
   @author   george
   @project   spb-base
@@ -11,13 +12,18 @@ import edu.pro.spbbase.model.Item;
 import edu.pro.spbbase.repository.ItemRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ItemService {
 
     private final ItemRepository repository;
@@ -29,23 +35,36 @@ public class ItemService {
 
     );
 
-  //  @PostConstruct
+    @PostConstruct
     void init() {
+        repository.deleteAll();
         repository.saveAll(items);
     }
 
     // CRUD
 
+    @Cacheable("items")
     public List<Item> getAll() {
+        log.info(" -----------  GET ALL ------------------");
         return repository.findAll();
     }
 
+    @Cacheable("items")
     public Item getById(String id) {
+        log.info(" request for id = " + id);
         return repository.findById(id).orElse(null);
     }
 
+    @CachePut(value = "items", key = "#item.id")
     public Item create(Item item) {
+        log.info(" request for creation = " + item);
         return repository.save(item);
+    }
+
+    @CacheEvict("items")
+    public void delete(String id) {
+        log.info(" delete id = " + id);
+        repository.deleteById(id);
     }
 
 
