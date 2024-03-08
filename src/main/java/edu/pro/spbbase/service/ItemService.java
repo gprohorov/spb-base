@@ -35,7 +35,7 @@ public class ItemService {
 
     );
 
-    @PostConstruct
+  //  @PostConstruct
     void init() {
         repository.deleteAll();
         repository.saveAll(items);
