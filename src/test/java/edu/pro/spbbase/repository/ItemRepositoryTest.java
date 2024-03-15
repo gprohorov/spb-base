@@ -43,7 +43,7 @@ class ItemRepositoryTest {
         List<Item> items = underTest.findAll()
                 .stream().filter(item -> item.getDescription().contains("test"))
                 .toList();
-           underTest.deleteAll(items);
+    //    underTest.deleteAll(items);
     }
 
     @Test
