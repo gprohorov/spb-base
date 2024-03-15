@@ -30,9 +30,9 @@ class ItemRepositoryTest {
     @BeforeEach
     void setUp() {
          List<Item> items = List.of(
-                new Item("1", "John", "000001", " ###test"),
-                new Item("2", "Paul", "000002", "tgcfhcvhc ###test"),
-                new Item("3", "Freddie", "000003", "###test vhgvhgv")
+                new Item("t1", "John", "000001", " ###test"),
+                new Item("t2", "Paul", "000002", "tgcfhcvhc ###test"),
+                new Item("t3", "Freddie", "000003", "###test vhgvhgv")
         );
          underTest.saveAll(items);
 
@@ -43,7 +43,7 @@ class ItemRepositoryTest {
         List<Item> items = underTest.findAll()
                 .stream().filter(item -> item.getDescription().contains("test"))
                 .toList();
-       underTest.deleteAll(items);
+           underTest.deleteAll(items);
     }
 
     @Test
