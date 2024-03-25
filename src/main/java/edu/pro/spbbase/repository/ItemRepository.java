@@ -15,5 +15,5 @@ import java.util.List;
 
 @Repository
 public interface ItemRepository extends MongoRepository<Item, String> {
-    List<Item> findAllByCodeContains(String str);
+    boolean existsItemByCode(String code);
 }
